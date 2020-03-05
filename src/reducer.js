@@ -30,6 +30,10 @@ export default (state = initialState, action) => {
       const nodeId = action.nodeId;
       const currentState = { ...state };
       const allChilds = getAllChilds(currentState, nodeId, [nodeId]);
+      if (action.parentId === undefined) {
+        alert("Top Node cannot be Deleted.");
+        return state;
+      }
       allChilds.forEach(child => delete currentState[child]);
       const newChild = currentState[action.parentId].childIds.filter(
         child => child !== nodeId
